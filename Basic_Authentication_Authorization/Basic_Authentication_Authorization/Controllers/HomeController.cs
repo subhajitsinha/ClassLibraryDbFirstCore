@@ -10,6 +10,7 @@ namespace Basic_Authentication_Authorization.Controllers
     {
         public ActionResult Index()
         {
+            var a = "Test";
             return View();
         }
 
