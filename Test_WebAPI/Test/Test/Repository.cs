@@ -12,12 +12,6 @@ namespace Test
         {
             using (var db = new ContosoDbContext())
             {
-                //var res = from test4 in db.Test4
-                //          join test2 in db.Test2
-                //        on test4.Test2Id equals test2.Id
-                //        into MatchedOrders
-                //          from mo in MatchedOrders.DefaultIfEmpty()
-                //          select new { test4.NameOf, mo.Name, };
 
                 var res = (from test4 in db.Test4
                           join test2 in db.Test2

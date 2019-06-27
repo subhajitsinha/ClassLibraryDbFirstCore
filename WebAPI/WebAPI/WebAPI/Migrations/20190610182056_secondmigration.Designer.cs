@@ -9,8 +9,8 @@ using WebAPI;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20190609163021_migrate")]
-    partial class migrate
+    [Migration("20190610182056_secondmigration")]
+    partial class secondmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,32 @@ namespace WebAPI.Migrations
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebAPI.Model.Car", b =>
+                {
+                    b.Property<int>("CarId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CarName");
+
+                    b.HasKey("CarId");
+
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("WebAPI.Model.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RoleName");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
+                });
 
             modelBuilder.Entity("WebAPI.Model.School", b =>
                 {
@@ -65,6 +91,25 @@ namespace WebAPI.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("WebAPI.Model.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("RoleId");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WebAPI.Model.Student", b =>

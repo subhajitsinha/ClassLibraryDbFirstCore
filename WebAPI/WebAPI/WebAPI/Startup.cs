@@ -10,17 +10,34 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
+using Owin;
+using System.Web.Http;
+
+[assembly:OwinStartup(typeof(WebAPI.Startup))]
 
 namespace WebAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public void Configuration (IAppBuilder app)
         {
-            Configuration = configuration;
-        }
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            var myProvider = new MyAuthorizationServerProvider();
+            OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = myProvider
+            };
+            app.UseOAuthAuthorizationServer(options);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
-        public IConfiguration Configuration { get; }
+            HttpConfiguration config = new HttpConfiguration();
+            WebApiConfig.Register(config);
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

@@ -12,7 +12,9 @@ namespace WebAPI
         public DbSet<School> Schools { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
-
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Car> Cars { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-8MEVUBJ\\SQLEXPRESS;Initial Catalog=VerBose;User Id=sa;Password = magic;Integrated Security = True");
